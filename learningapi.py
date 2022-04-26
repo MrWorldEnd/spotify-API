@@ -1,3 +1,4 @@
+import requests
 import base64
 
 client_id = 'f2483274d6744f639231ab05ac8714f7'
@@ -17,5 +18,9 @@ token_data = {
 }
 
 tocken_header = {
-    "Authorization" : f"Basic {client_creds.encode()}"
+    "Authorization" : f"Basic {client_creds.decode()}"
 }
+
+r = requests.post(tocken_url, data = token_data, headers = token_header)
+
+print(r.json())
