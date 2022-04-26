@@ -8,7 +8,7 @@ client_secret = '518efa1a7b434a44a50e1c5e44674119'
 
 client_creds = f"{client_id}:{client_secret}"
 
-base64_client_creds = base64.b64encode(client_creds)
+base64_client_creds = base64.b64encode(client_creds.encode())
 print(base64_client_creds)
 
 tocken_url =  'https://accounts.spotify.com/api/token'
@@ -17,8 +17,8 @@ token_data = {
     "grant_type" : "client_credentials"
 }
 
-tocken_header = {
-    "Authorization" : f"Basic {client_creds.decode()}"
+token_header = {
+    "Authorization" : f"Basic {client_creds}"
 }
 
 r = requests.post(tocken_url, data = token_data, headers = token_header)
