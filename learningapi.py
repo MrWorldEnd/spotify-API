@@ -104,11 +104,10 @@ class SpotifyAPI(object):
         headers = self.get_resourse_header()
         endpoint = "https://api.spotify.com/v1/search"
         data = urlencode({"q" : query, "type" : search_type.lower()})
-        lookup_url = f"{endpoint}?{data}"        
+        lookup_url = f"{endpoint}?{data}"   
+        print(lookup_url)     
         r = requests.get(lookup_url ,headers=headers)
-        if r.status_code in range(200, 299):
+        if r.status_code not in range(200, 299):
             return {}
         return r.json()
 
-client = SpotifyAPI(client_id, client_secret)
-client.search("Homicide",search_type='track')
