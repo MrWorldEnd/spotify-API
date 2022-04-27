@@ -22,6 +22,15 @@ class SpotifyAPI(object):
         super().__init__(*args, **kwargs)
         self.client_id = client_id
         self.client_secret = client_secret
+
+    def get_client_credencials(self):
+        client_id = self.client_id
+        client_secret = self.client_secret
+        if client_secret == None or client_id == None:
+            raise Exception("You must se client_id and client_secret")
+        client_creds = f"{client_id}:{client_secret}"
+        base64_client_creds = base64.b64encode(client_creds.encode())   
+        return base64_client_creds.decode()
         
     def get_token_header(self):
         base64_client_creds = self.get_client_credencials()
@@ -33,14 +42,16 @@ class SpotifyAPI(object):
         return  {
             "grant_type" : "client_credentials"
         }
+
+    def extract_access_token(self):
+        return
         
     def perform_auth(self):
         token_url = self.token_url
         token_data = self.get_token_data()
-        token_header = self.token_header
+        token_header = self.get_token_header()
         r = requests.post(token_url, data = token_data, headers = token_header)
-        if r.status_code in range(200, 299):
-            raise Exception("Could not authenticate")
+        if r.status_code not in range(200, 299):
             return False
         data = r.json()
         now = datetime.datetime.now()
@@ -71,12 +82,6 @@ class SpotifyAPI(object):
         }
         return headers
     
-    def get_client_credencials(self):
-        
-        client_creds = f"{client_id}:{client_secret}"
-
-        base64_client_creds = base64.b64encode(client_creds.encode())
-        print(base64_client_creds)
 
     def search(self, query, searchtype='artist'):
         headers = self.get_resourse_header()
