@@ -87,7 +87,7 @@ class SpotifyAPI(object):
     def search(self, query, searchtype='artist'):
         headers = self.get_resourse_header()
         endpoint = "https://api.spotify.com/v1/search"
-        data = {"q" : query, "type" : searchtype}
+        data = urlencode({"q" : query, "type" : searchtype})
         lookup_url = f"{endpoint}?{data}"        
         r = requests.get(lookup_url ,headers=headers)
         if r.status_code in range(200, 299):
@@ -108,6 +108,3 @@ class SpotifyAPI(object):
     def get_artist(self, lookup_id):
         return self.get_resources(lookup_id, resource_type='artist')   
 
-client = SpotifyAPI(client_id, client_secret)
-client.perform_auth()
-client.search("Homicide","track")
