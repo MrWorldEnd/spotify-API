@@ -1,5 +1,6 @@
 #createv env file
 from http import client
+from os import access
 import requests
 import datetime
 import base64
@@ -85,6 +86,7 @@ class SpotifyAPI(object):
     
 
     def search(self, query, searchtype='artist'):
+        access_token = self.get_access_token()
         headers = self.get_resourse_header()
         endpoint = "https://api.spotify.com/v1/search"
         data = urlencode({"q" : query, "type" : searchtype})
