@@ -1,8 +1,12 @@
 #createv env file
 from http import client
+from multiprocessing.connection import wait
+import socket
+from socket import AF_INET, SOCK_STREAM, SO_REUSEADDR, SOL_SOCKET,SHUT_RDWR
 import requests
 import datetime
 import base64
+import time
 
 from urllib.parse import urlencode 
 
@@ -110,4 +114,40 @@ class SpotifyAPI(object):
         if r.status_code not in range(200, 299):
             return {}
         return r.json()
+
+    def play(self):
+        headers = self.get_resourse_header()
+        endpoint = "https://api.spotify.com/v1/me/player/play"
+        r = requests.put(lheaders=headers)
+        return
+    
+    def pause(self):
+        headers = self.get_resourse_header()
+        endpoint = "https://api.spotify.com/v1/me/player/pause"
+        r = requests.put(lheaders=headers)
+        return
+    
+    def next(self):
+        headers = self.get_resourse_header()
+        endpoint = "https://api.spotify.com/v1/me/player/next"
+        r = requests.put(lheaders=headers)
+        return
+    
+    def previous(self):
+        headers = self.get_resourse_header()
+        endpoint = "https://api.spotify.com/v1/me/player/previous"
+        r = requests.put(lheaders=headers)
+        return
+        
+client = SpotifyAPI()
+
+client.play()
+
+time.sleep(3)
+
+client.next()
+
+time.sleep(3)
+
+client.previous()
 
