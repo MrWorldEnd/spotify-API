@@ -1,15 +1,9 @@
 #createv env file
-from cmath import exp
-from email import header
-from ensurepip import version
-from http import client
-from lib2to3.pgen2 import token
-import resource
 import requests
 import datetime
 import base64
 
-from urllib.parsre import urlencode 
+from urllib.parse import urlencode 
 
 client_id = 'f2483274d6744f639231ab05ac8714f7'
 client_secret = '518efa1a7b434a44a50e1c5e44674119'
@@ -74,7 +68,7 @@ class SpotifyAPI(object):
         access_token = self.get_access_token()
         headers = {
                 "Authorization" : f"Basic {access_token}"
-            }
+        }
         return headers
     
     def get_client_credencials(self):
@@ -85,9 +79,8 @@ class SpotifyAPI(object):
         print(base64_client_creds)
 
     def search(self, query, searchtype='artist'):
-        access_token = self.get_access_token()
-        headers = self.get_resourse_header
-        endpoint = "http://api.spotify.com/v1/search"
+        headers = self.get_resourse_header()
+        endpoint = "https://api.spotify.com/v1/search"
         data = {"q" : query, "type" : searchtype}
         lookup_url = f"{endpoint}?{data}"        
         r = requests.get(lookup_url ,headers=headers)
