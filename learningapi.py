@@ -60,7 +60,7 @@ class SpotifyAPI(object):
         expires_in = data['expires_in']
         expires = now + datetime.timedelta(seconds = expires_in)
         self.access_token = access_token
-        self.expires = expires
+        self.access_token_expires = expires
         self.access_token_did_expire = expires < now
         return True  
     
@@ -110,3 +110,4 @@ class SpotifyAPI(object):
 
 client = SpotifyAPI(client_id, client_secret)
 client.perform_auth()
+client.search("Homicide","track")
