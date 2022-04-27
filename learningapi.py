@@ -106,5 +106,3 @@ spotify = SpotifyAPI(client_id,client_secret)
 spotify.perform_auth()
 spotify.search("Homicide", searchtype="track")
 
-
-access_token = spotify.access_token
