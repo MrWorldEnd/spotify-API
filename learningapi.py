@@ -79,11 +79,10 @@ class SpotifyAPI(object):
     def get_resourse_header(self):
         access_token = self.get_access_token()
         headers = {
-                "Authorization" : f"Basic {access_token}"
+                "Authorization" : f"Bearer {access_token}"
         }
         return headers
     
-
     def search(self, query, search_type='artist'):
         headers = self.get_resourse_header()
         endpoint = "https://api.spotify.com/v1/search"
