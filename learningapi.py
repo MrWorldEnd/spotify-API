@@ -96,13 +96,13 @@ class SpotifyAPI(object):
         return r.json()
     
     def get_albun(self, lookup_id):
-        return self.get_resources(lookup_id, resource_type='albums')
+        return self.search(lookup_id, search_type='albums')
     
     def get_artist(self, lookup_id):
-        return self.get_resources(lookup_id, resource_type='artist') 
+        return self.search(lookup_id, search_type='artist') 
 
     def get_track(self, lookup_id):
-        return self.get_resources(lookup_id, resource_type='track') 
+        return self.search(lookup_id, search_type='track') 
     
     def search(self, query, search_type='artist'):
         headers = self.get_resourse_header()
@@ -139,15 +139,6 @@ class SpotifyAPI(object):
         r = requests.put(lheaders=headers)
         return
         
-client = SpotifyAPI()
+client = SpotifyAPI(client_id, client_secret)
 
-client.play()
-
-time.sleep(3)
-
-client.next()
-
-time.sleep(3)
-
-client.previous()
-
+client.get_track('Homicide')
