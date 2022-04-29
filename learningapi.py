@@ -10,11 +10,12 @@ import time
 
 from urllib.parse import urlencode 
 
-client_id = 'f2483274d6744f639231ab05ac8714f7'
-client_secret = '518efa1a7b434a44a50e1c5e44674119'
+client_id = 'x'#removed for seurty reasons
+client_secret = 'x'#removed for seurty reasons
 
 #do tocken lookup
 class SpotifyAPI(object):
+    #initial API oject instance
     access_token = None
     access_token_expires = datetime.datetime.now()
     access_token_did_expire = True
@@ -24,6 +25,7 @@ class SpotifyAPI(object):
     
 
     def __init__(self, client_id, client_secret, *args, **kwargs):
+        #CLASS CALL AND INITIALIZATION OF REQUEST TOCKEN
         super().__init__(*args, **kwargs)
         self.client_id = client_id
         self.client_secret = client_secret
@@ -52,6 +54,7 @@ class SpotifyAPI(object):
         return
         
     def perform_auth(self):
+        #tocken Authentication
         token_url = self.token_url
         token_data = self.get_token_data()
         token_header = self.get_token_header()
@@ -69,6 +72,7 @@ class SpotifyAPI(object):
         return True  
     
     def get_access_token(self):
+        #Retreiving access tocken requests
         token = self.access_token
         expires = self.access_token_expires
         now = datetime.datetime.now()
@@ -80,7 +84,7 @@ class SpotifyAPI(object):
             return self.get_access_token()
         return token
     
-    def get_resourse_header(self):
+    def get_resourse_header(self):  
         access_token = self.get_access_token()
         headers = {
                 "Authorization" : f"Bearer {access_token}"
